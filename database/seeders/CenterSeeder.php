@@ -2,12 +2,10 @@
 
 namespace Database\Seeders;
 
-
-use Faker\Provider\Address;
-use GuzzleHttp\Promise\Create;
+use App\Center;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class CenterSeeder extends Seeder
 {
@@ -18,15 +16,16 @@ class CenterSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Factory::create();
         DB::table('center')->insert([
-            //Temporary comment: Need Faker to insert fake data will be done ...
-            'name' => '',
-            'address' => '',
-            'phoneNo' => '',
-            'website' => '',
-            'email' => '',
-            'location' => '',
-            'city' => ''
+            'name' => $faker->company,
+            'address' => $faker->address,
+            'phoneNo' => $faker->phoneNumber,
+            'website' => $faker->domainName,
+            'email' => $faker->companyEmail,
+            'location' => $faker->streetName,
+            'city' => $faker->city
         ]);
+        Center::factory()->times(5)->create();
     }
 }

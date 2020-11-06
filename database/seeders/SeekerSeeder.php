@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Seeker;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
+use Faker\Factory;
 
 class SeekerSeeder extends Seeder
 {
@@ -15,16 +16,17 @@ class SeekerSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Factory::create();
         DB::table('seeker')->insert([
-            //Temporary comment: Need Faker to insert fake data will be done ...
-            'cin' => '',
-            'firstname' => '',
-            'lastname' => '',
-            'bloodgroup' => '',
-            'birthdate' => '',
-            'address' => '',
-            'phoneNo' => '',
-            'gender' => ''
+            'cin' => $faker->randomLetter.$faker->randomLetter.$faker->numberBetween(111111,999999),
+            'firstname' => $faker->firstName,
+            'lastname' => $faker->lastName,
+            'bloodgroup' => $faker->randomElement(['A+','O+','A-','O-','B+','B-']),
+            'birthdate' => $faker->date('Y-m-d','now'),
+            'address' => $faker->address,
+            'phoneNo' => $faker->phoneNumber,
+            'gender' => $faker->randomElement(['H','F'])
         ]);
+        Seeker::factory(25)->create();
     }
 }
